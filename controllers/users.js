@@ -92,19 +92,16 @@ exports.deleteUser = async (req,res) =>{
 
 //! ACTUALIZAR USUARIO
 exports.updateUser = async (req,res) =>{
-  // const errors = validationResult(req);
-  // if (!errors.isEmpty()) {
-  //     return res.status(400).json({ errors: errors.array });
-  // }
   try {
     const userUpdated=req.body
     const newData = await User.findByIdAndUpdate(req.params.id, userUpdated, { new: true }).select('-password')
     return res.status(200).json(newData)
   } catch (error) {
     console.log(error);
-res.status(400).json({ msg: "Error en la solicitud." })
+  res.status(400).json({ok:false, message: "Error en la solicitud." })
   }
 }
+
 
 //! BUSCAR USUARIOS
 exports.getUsers = async (req, res)=>{
@@ -122,6 +119,7 @@ exports.getUser = async (req, res) => {
 try {
     const id = req.params.id;
     const user = await User.findById(id);
+    console.log(user);
     res.status(200).json({ ok: true, user: user });
   } catch (error) {
   console.log(error);
