@@ -18,7 +18,7 @@ app.use('/api/users', users);
 app.use('/api/products', products);
 
 app.listen(PORT, ()=> {
-    console.log(`Servidor funcionando en el puerto ${PORT}`)
+    console.log(`Servidor funcionando en el puerto ${PORT}`);    
 })
 
 

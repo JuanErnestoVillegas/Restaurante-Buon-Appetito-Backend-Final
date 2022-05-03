@@ -13,7 +13,7 @@ exports.login = async (req, res)=>{
     if(!passwordCheck){
       return res.status(400).json({ok:false, message:'Credenciales incorrectas.'});
     }
-    const token = jwt.sign({id:user._id},process.env.SECRET_KEY,{expiresIn:'10h'});
+    const token = jwt.sign({id:user._id},process.env.SECRET_KEY,{expiresIn:'20h'});
     res.status(200).json({ok:true, token:token});
   } catch (error) {
     console.log(error);
@@ -57,10 +57,33 @@ exports.getUserById = async (req, res) =>{
   try {
     // const idPorBody = req.body.id;
     // const idPorQuery = req.query.id;
-    // const idPorParams = req.params.id;
+    const idPorParams = req.params.id;
     const userXEmail = await User.findOne({email:req.body.email})
     const user = await User.findById(idPorParams);
     res.status(200).json({xId:user,xEmail:userXEmail})
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+//! BUSCAR USUARIO POR EMAIL
+exports.getPassByEmail = async (req, res) =>{
+    try {
+    const user = await User.findOne({email: req.body.email});
+    // console.log('usuario existente');
+    if(!user){
+      // return res.status(400).json({ok:false, message:'El usuario no existe.'});
+      return res.status(400).json({ok:false, message:'El usuario no existe.', isEmailExist: false});
+    } else{
+      res.status(200).json({ok:true, message:'El email fue enviado.'});
+          console.log('usuario existente');
+          // await User.findByIdAndUpdate(user._id, {password: '12345678'});
+          //  mail({email: req.body.email, password: '12345678'});
+          res.status(200).json({ok:true, message:'El email fue enviado.',  isEmailExist: true});
+          // res.status(200).json({ok:true, message:'El email fue enviado.'});
+        }   
   } catch (error) {
     console.log(error);
   }
