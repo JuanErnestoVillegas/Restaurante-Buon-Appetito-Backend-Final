@@ -2,6 +2,7 @@ const emailjs = require("@emailjs/browser");
 
 
 const mail = (values) => {
+  console.log(values);
     let userName = values.name;
     let dest = values.email;   
 
@@ -14,9 +15,9 @@ const mail = (values) => {
      // emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
     emailjs.send('service_kd00g6g', 'template_zghtsvk', templateParams, 'zu36obM0kMdrA0dIG')
       .then((result) => {
-          console.log(result.text);
+          console.log("exito", result.text);
       }, (error) => {
-          console.log(error.text);
+          console.log("error",error);
       });
   };
 

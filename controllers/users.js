@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/User');
+const mail = require('./../helpers/mail');
 
 //! LOGIN
 exports.login = async (req, res)=>{
@@ -71,21 +72,23 @@ exports.getUserById = async (req, res) =>{
 //! BUSCAR USUARIO POR EMAIL
 exports.getPassByEmail = async (req, res) =>{
     try {
+      console.log(req.body);
     const user = await User.findOne({email: req.body.email});
     // console.log('usuario existente');
+    console.log(user);
     if(!user){
       // return res.status(400).json({ok:false, message:'El usuario no existe.'});
       return res.status(400).json({ok:false, message:'El usuario no existe.', isEmailExist: false});
     } else{
-      res.status(200).json({ok:true, message:'El email fue enviado.'});
-          console.log('usuario existente');
+           console.log('usuario existente');
           // await User.findByIdAndUpdate(user._id, {password: '12345678'});
-          //  mail({email: req.body.email, password: '12345678'});
+          mail({email: req.body.email, password: '12345678'});
           res.status(200).json({ok:true, message:'El email fue enviado.',  isEmailExist: true});
           // res.status(200).json({ok:true, message:'El email fue enviado.'});
         }   
   } catch (error) {
     console.log(error);
+    return res.status(400).json({ok:false, message:'El usuario no existe.', isEmailExist: false});
   }
 }
 
