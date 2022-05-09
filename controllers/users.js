@@ -81,12 +81,20 @@ exports.getPassByEmail = async (req, res) =>{
     } else{
            console.log('usuario existente');      
           const salt = await bcrypt.genSalt(10);
-          const encryptedPassword = await bcrypt.hash('12345678', salt);
-          newpassword = encryptedPassword; // 12345678   
+          // const encryptedPassword = await bcrypt.hash('12345678', salt);
+          // newpassword = encryptedPassword; // 12345678   
+          // // newpassword = '$2b$10$96Jf1CYgJAGCxr3LumtNqOat64Ko9qQvtcuO/0jUy8jN/dEpySxx2'; // 12345678   
+          // await User.findByIdAndUpdate(user._id, {password: newpassword});  
+          randomNum=String(Math.floor(Math.random()*(99999999-1 + 1))+1); //end=99999999  start=1 
+          
+          const encryptedPassword = await bcrypt.hash(randomNum, salt);
+          newpassword = encryptedPassword;   
           // newpassword = '$2b$10$96Jf1CYgJAGCxr3LumtNqOat64Ko9qQvtcuO/0jUy8jN/dEpySxx2'; // 12345678   
-          await User.findByIdAndUpdate(user._id, {password: newpassword});      
-          mail({email: req.body.email, nombre: user.name, asunto: 'recover', password: newpassword});
-          res.status(200).json({ok:true, message:'El email fue enviado.',  isEmailExist: true});          
+          await User.findByIdAndUpdate(user._id, {password: newpassword});   
+          mail({email: req.body.email, nombre: user.name, asunto: 'recover', password: randomNum});
+          // mail({email: req.body.email, nombre: user.name, asunto: 'recover', password: newpassword});
+          res.status(200).json({ok:true, message:'El email fue enviado.',  isEmailExist: true});
+                    
         }   
   } catch (error) {
     console.log(error);

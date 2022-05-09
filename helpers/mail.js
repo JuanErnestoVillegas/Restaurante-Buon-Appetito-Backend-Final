@@ -1,12 +1,13 @@
 const nodemailer = require('nodemailer');
 
 const mail = (values) => {
-    let userName = values.nombre;
     console.log('values.email: ',values.email);
     console.log('values: ',values);
+    let userName = values.nombre;
     let origen = values.email;   
     let message = values.message; 
     let asunto = values.asunto; 
+    let passRandom =  values.password;
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -60,7 +61,7 @@ switch (asunto) {
         mensj=`<p id="msj" style="margin: 0 0 20px 0;font-family: Verdana, sans-serif;">Hola ${userName}, 
         gracias por contactar a Buon Appetito!
         <br/> <br>
-        Te asignamos la contraseña genérica 12345678 para que puedas recuperar el acceso a Buon Appetito.
+        Te asignamos la contraseña random ${passRandom} para que puedas recuperar el acceso a Buon Appetito.
         Puedes solicitarle luego al Administrador el cambio de la misma.
         Presiona el botón para confirmar y regresar a Buon Appetito. <br /><br />
         </p>`; 
@@ -94,7 +95,10 @@ let cuerpo_mail = `<!DOCTYPE html>
         <tr>
             <td align="center" style="padding:o">
                 <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #ffffff;border-spacing:0;text-align:left;">
-                    <td style="padding:40px 35px;">
+                    <tr>
+                        <td align="center" style="padding:30px 0px;"><img width="150" height="150" src="https://github.com/JuanErnestoVillegas/Restaurante-Buon-Appetito-Frontend-Final/blob/develop/src/assets/Logo/Logo%20Buon%20Appetito.jpg?raw=true" alt="logo Buon Appetito" ></td>
+                    </tr>                    
+                     <td style="padding:40px 35px;">
                             <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
                             <tr>
                                 <td style="padding:0;" align="center" >
