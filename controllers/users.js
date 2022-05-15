@@ -141,9 +141,9 @@ exports.deleteUser = async (req,res) =>{
 //! ACTUALIZAR USUARIO
 exports.updateUser = async (req,res) =>{
   try {
-    const userUpdated=req.body
+    const userUpdated=req.body;
     const newData = await User.findByIdAndUpdate(req.params.id, userUpdated, { new: true }).select('-password')
-    return res.status(200).json(newData)
+    return res.status(200).json(newData);
   } catch (error) {
     console.log(error);
   res.status(400).json({ok:false, message: "Error en la solicitud." });
