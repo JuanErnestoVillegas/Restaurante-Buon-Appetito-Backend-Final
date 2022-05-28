@@ -19,6 +19,7 @@
   "homepage": "https://github.com/MarcosScheuermann/Restaurante-Buon-Appetito-Backend#readme",
   "dependencies": {
     "@emailjs/browser": "^3.6.2",
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
