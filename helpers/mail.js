@@ -164,15 +164,19 @@ let mailOptions = {
 };
 
 transporter.sendMail(mailOptions, function (err, info) {
-  if (err) {
+try {
+    if (!err) {
+        res.json(info);
+        console.log('Email enviado correctamente.');    
+    } 
+} catch (err) {
     res.json(err);
-  } else {
-    res.json(info);
-    console.log('Email enviado correctamente.');
-  }
-});
+    console.log('Email no enviado.');
+}});
 
 };
+
+
 
 module.exports= mail;
 
